@@ -1,36 +1,43 @@
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        // Create instances of the classes
-        TicketClerk ticketClerk = new TicketClerk("John Doe", "Central Station");
-        RailwayDatabase railwayDatabase = new RailwayDatabase("Jane Doe", "West Station", 1);
-        Passenger passenger = new Passenger("Alice", 30, "123 Main St");
-        Train train = new Train("Bob", 40, "456 Elm St", "Express", "T123");
-        Ticket ticket = new Ticket("Charlie", 25, "789 Oak St", 1001, "Central Station", "West Station", "P001");
-        Payment payment = new Payment("Dave", 35, "101 Pine St", 50.0);
-
-        // Call methods on the instances
-        ticketClerk.ReserveSeat();
-        ticketClerk.ReserveTicket();
-        ticketClerk.CancelTicket();
-        ticketClerk.CancelPayment();
-
-        passenger.SearchTrain();
-        passenger.ViewSchedule();
-        passenger.ResearveSeat();
-        passenger.PurchaseTicket();
-        passenger.CancelTicket();
-        passenger.MakePayment();
-
-        train.SearchTrain();
-        train.ViewSchedule();
-        train.ResearveSeat();
-        train.PurchaseTicket();
-        train.CancelTicket();
-        train.MakePayment();
-
-        ticket.PaymentAmount();
-        ticket.CancelTicket();
-
-        payment.playAmount();
+        // Initialize database
+        RailwayDatabase db = RailwayDatabase.getInstance();
+        
+        // Create passenger and ticket clerk
+        Passenger passenger = new Passenger("John Doe", 30, "123 Main St");
+        TicketClerk clerk = new TicketClerk("Jane Smith", "Central Station");
+        
+        // Demo booking flow
+        System.out.println("Railway Ticket Booking System Demo");
+        System.out.println("----------------------------------");
+        
+        // Search for trains
+        List<Train> availableTrains = passenger.searchTrains("New York", "Boston");
+        System.out.println("Available trains: " + availableTrains.size());
+        
+        // Show available trains
+        for (Train train : availableTrains) {
+            System.out.println("Train ID: " + train.getTrainId() + ", Train Name: " + train.getModel());
+        }
+        
+        if (!availableTrains.isEmpty()) {
+            Train selectedTrain = availableTrains.get(0);
+            System.out.println("Selected train: " + selectedTrain.getTrainId());
+            
+            // View schedule
+            List<String> schedule = passenger.viewSchedule(selectedTrain.getTrainId());
+            System.out.println("\nTrain Schedule:");
+            schedule.forEach(System.out::println);
+            
+            // Purchase ticket 
+            Ticket ticket = clerk.reserveTicket(passenger, selectedTrain, "S1", "New York", "Boston");
+            if (ticket != null) {
+                System.out.println("Ticket reserved successfully. Ticket No: " + ticket.getTicketNo());
+            } else {
+                System.out.println("Failed to reserve ticket.");
+            }
+        }
     }
 }

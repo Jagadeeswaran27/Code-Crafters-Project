@@ -1,18 +1,59 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class RailwayDatabase {
-    private String name;
-    private String station;
-    private int id;
+    private static RailwayDatabase instance;
+    private Map<String, Train> trains;
+    private Map<String, Ticket> tickets;
 
-    public RailwayDatabase(String name, String station, int id) {
-        this.name = name;
-        this.station = station;
-        this.id = id;
+    private RailwayDatabase() {
+        trains = new HashMap<>();
+        tickets = new HashMap<>();
+        // Initialize some trains
+        trains.put("T123", new Train("Express", "T123"));
+        trains.put("T456", new Train("Local", "T456"));
     }
 
-    void Response() {
-        System.out.println("Response...");
+    public static RailwayDatabase getInstance() {
+        if (instance == null) {
+            instance = new RailwayDatabase();
+        }
+        return instance;
     }
 
+    public List<Train> searchTrains(String startLocation, String destinationLocation) {
+        // Simplified search logic
+        return new ArrayList<>(trains.values());
+    }
+
+    public List<String> getTrainSchedule(String trainId) {
+        // Simplified schedule
+        List<String> schedule = new ArrayList<>();
+        schedule.add("08:00 AM - New York");
+        schedule.add("10:00 AM - Boston");
+        return schedule;
+    }
+
+    public boolean checkAndReserveSeat(String trainId, String seatNumber) {
+        Train train = trains.get(trainId);
+        if (train != null && train.isSeatAvailable(seatNumber)) {
+            train.bookSeat(seatNumber);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cancelTicket(String ticketNo) {
+        Ticket ticket = tickets.remove(ticketNo);
+        if (ticket != null) {
+            Train train = trains.get(ticket.getPassengerNo());
+            if (train != null) {
+                train.releaseSeat(ticket.getPassengerNo());
+            }
+            return true;
+        }
+        return false;
+    }
 }
-
-
