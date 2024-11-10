@@ -1,22 +1,47 @@
-public class Ticket extends Passenger {
-    int TicketNumber;
-    String StartingLocation;
-    String DestinationLocation;
-    String PassengerNo;
+public class Ticket {
+    private String ticketNo;
+    private String startingLocation;
+    private String destinationLocation;
+    private String passengerNo;
+    private double paymentAmount;
 
-    Ticket(String Name, int Age, String Address,int TicketNumber, String StartingLocation, String DestinationLocation, String PassengerNo) {
-        super(Name, Age, Address);
-        this.TicketNumber = TicketNumber;
-        this.StartingLocation = StartingLocation;
-        this.DestinationLocation = DestinationLocation;
-        this.PassengerNo = PassengerNo;
+    public String getTicketNo() {
+        return ticketNo;
     }
 
-    void PaymentAmount() {
-        System.out.println("Calculating payment amount...");
-    }
-    void CancelTicket() {
-        System.out.println("Cancelling ticket...");
+    public void setTicketNo(String ticketNo) {
+        this.ticketNo = ticketNo;
     }
 
+    public String getStartingLocation() {
+        return startingLocation;
+    }
+
+    public void setStartingLocation(String startingLocation) {
+        this.startingLocation = startingLocation;
+    }
+
+    public String getDestinationLocation() {
+        return destinationLocation;
+    }
+
+    public void setDestinationLocation(String destinationLocation) {
+        this.destinationLocation = destinationLocation;
+    }
+
+    public String getPassengerNo() {
+        return passengerNo;
+    }
+
+    public void setPassengerNo(String passengerNo) {
+        this.passengerNo = passengerNo;
+    }
+
+    public double getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
 }

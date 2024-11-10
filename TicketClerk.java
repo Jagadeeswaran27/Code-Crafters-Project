@@ -1,26 +1,40 @@
 public class TicketClerk {
-    String ClerkName;
-    String Location;
+    private String name;
+    private String location;
 
-    TicketClerk(String ClerkName, String Location) {
-        this.ClerkName = ClerkName;
-        this.Location = Location;
+    public TicketClerk(String name, String location) {
+        this.name = name;
+        this.location = location;
     }
 
-    void ReserveSeat() {
-        System.out.println("Reserving seat...");
+    public boolean reserveSeat(String trainId, String seatNumber) {
+        return RailwayDatabase.getInstance().checkAndReserveSeat(trainId, seatNumber);
     }
 
-    void ReserveTicket() {
-        System.out.println("Reserving ticket...");
+    public Ticket reserveTicket(Passenger passenger, Train train, String seatNumber,
+                                String startLocation, String destinationLocation) {
+        if (reserveSeat(train.getTrainId(), seatNumber)) {
+            Ticket ticket = new Ticket();
+            ticket.setTicketNo(generateTicketNumber());
+            ticket.setStartingLocation(startLocation);
+            ticket.setDestinationLocation(destinationLocation);
+            ticket.setPassengerNo(passenger.getName());
+            ticket.setPaymentAmount(calculateFare(startLocation, destinationLocation));
+            return ticket;
+        }
+        return null;
     }
 
-    void CancelTicket() {
-        System.out.println("Cancelling ticket...");
+    public boolean cancelTicket(String ticketNo) {
+        return RailwayDatabase.getInstance().cancelTicket(ticketNo);
     }
 
-    void CancelPayment() {
-        System.out.println("Cancelling payment...");
+    public double calculateFare(String startLocation, String destinationLocation) {
+        // Simplified fare calculation
+        return 50.0;
     }
 
+    private String generateTicketNumber() {
+        return "T" + System.currentTimeMillis();
+    }
 }

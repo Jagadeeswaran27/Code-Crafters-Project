@@ -1,36 +1,38 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Passenger {
-    String Name;
-    int Age;
-    String Address;
+    private String name;
+    private int age;
+    private String address;
+    private List<Ticket> tickets;
 
-    Passenger(String Name, int Age, String Address) {
-        this.Name = Name;
-        this.Age = Age;
-        this.Address = Address;
+    public Passenger(String name, int age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.tickets = new ArrayList<>();
     }
 
-    void SearchTrain() {
-        System.out.println("Searching for trains...");
+    public List<Train> searchTrains(String startLocation, String destinationLocation) {
+        return RailwayDatabase.getInstance().searchTrains(startLocation, destinationLocation);
     }
 
-    void ViewSchedule() {
-        System.out.println("Viewing schedule...");
+    public List<String> viewSchedule(String trainId) {
+        return RailwayDatabase.getInstance().getTrainSchedule(trainId);
     }
 
-    void ResearveSeat() {
-        System.out.println("Reserving seat...");
+    public boolean reserveSeat(String trainId, String seatNumber) {
+        return RailwayDatabase.getInstance().checkAndReserveSeat(trainId, seatNumber);
     }
 
-    void PurchaseTicket() {
-        System.out.println("Purchasing ticket...");
+    public Ticket purchaseTicket(Train train, String seatNumber, String startLocation,
+                                 String destinationLocation) {
+        TicketClerk clerk = new TicketClerk("Jane Smith", "Central Station");
+        return clerk.reserveTicket(this, train, seatNumber, startLocation, destinationLocation);
     }
 
-    void CancelTicket() {
-        System.out.println("Cancelling ticket...");
+    public String getName() {
+        return name;
     }
-
-    void MakePayment() {
-        System.out.println("Making payment...");
-    }
-
 }
