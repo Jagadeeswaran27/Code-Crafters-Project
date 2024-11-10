@@ -31,10 +31,15 @@ public class Main {
             System.out.println("\nTrain Schedule:");
             schedule.forEach(System.out::println);
             
+            // Calculate ticket price
+            double ticketPrice = clerk.calculateFare("New York", "Boston");
+            System.out.println("Ticket Price: $" + ticketPrice);
+            
             // Purchase ticket 
             Ticket ticket = clerk.reserveTicket(passenger, selectedTrain, "S1", "New York", "Boston");
             if (ticket != null) {
                 System.out.println("Ticket reserved successfully. Ticket No: " + ticket.getTicketNo());
+                System.out.println("Ticket Price: $" + ticket.getPaymentAmount());
             } else {
                 System.out.println("Failed to reserve ticket.");
             }

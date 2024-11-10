@@ -4,11 +4,6 @@ public class Ticket {
     private String destinationLocation;
     private String passengerNo;
     private double paymentAmount;
-    private boolean cancelled;
-
-    public void cancelTicket() {
-        this.cancelled = true;
-    }
 
     public String getTicketNo() {
         return ticketNo;
