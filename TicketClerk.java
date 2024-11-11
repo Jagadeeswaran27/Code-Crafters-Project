@@ -12,7 +12,7 @@ public class TicketClerk {
     }
 
     public Ticket reserveTicket(Passenger passenger, Train train, String seatNumber,
-                                String startLocation, String destinationLocation) {
+            String startLocation, String destinationLocation) {
         if (reserveSeat(train.getTrainId(), seatNumber)) {
             Ticket ticket = new Ticket();
             ticket.setTicketNo(generateTicketNumber());
@@ -30,7 +30,6 @@ public class TicketClerk {
     }
 
     public double calculateFare(String startLocation, String destinationLocation) {
-        // Simplified fare calculation
         return 50.0;
     }
 

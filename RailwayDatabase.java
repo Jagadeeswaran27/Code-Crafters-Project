@@ -11,7 +11,6 @@ public class RailwayDatabase {
     private RailwayDatabase() {
         trains = new HashMap<>();
         tickets = new HashMap<>();
-        // Initialize some trains
         trains.put("T123", new Train("Express", "T123"));
         trains.put("T456", new Train("Local", "T456"));
     }
@@ -24,12 +23,10 @@ public class RailwayDatabase {
     }
 
     public List<Train> searchTrains(String startLocation, String destinationLocation) {
-        // Simplified search logic
         return new ArrayList<>(trains.values());
     }
 
     public List<String> getTrainSchedule(String trainId) {
-        // Simplified schedule
         List<String> schedule = new ArrayList<>();
         schedule.add("08:00 AM - New York");
         schedule.add("10:00 AM - Boston");
